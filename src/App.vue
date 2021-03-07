@@ -1,19 +1,21 @@
 <template>
   <div>
-    {{ chars }}
+    <char v-for="(char, ind) in chars" :key="ind" :char="char" />
   </div>
 </template>
 
 <script>
 import chars from "./chars";
+import char from "./components/char";
 export default {
   name: "App",
+  components: { char },
+  computed: {},
   data() {
     return {
       chars,
     };
   },
-  components: {},
 };
 </script>
 
