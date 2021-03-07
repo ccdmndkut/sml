@@ -2,6 +2,7 @@
   <div>
     <div class="score">
       <div>{{ right }}</div>
+      <div  class="answr">{{ answer ? answer : "SML" }}</div>
       <div>{{ wrong }}</div>
     </div>
     <char
@@ -10,6 +11,8 @@
       :key="curQ.name"
       :char="curQ"
       :chars="chars"
+      :answer="answer"
+      @next="question++"
     />
   </div>
 </template>
@@ -27,16 +30,22 @@ export default {
       question: 0,
       right: 0,
       wrong: 0,
+      answer: false,
     };
   },
   mounted() {
     this.chars = this.shuffle(charsImp);
   },
+  watch:{
+question(){
+  this.answer=false
+}
+  },
   methods: {
     setanswer(a) {
+      this.answer = this.chars[this.question].name
       if (a == this.chars[this.question].name) this.right++;
       else this.wrong++;
-      this.question++;
     },
     shuffle(array) {
       return array.sort(() => Math.random() - 0.5);
@@ -79,11 +88,24 @@ body {
 }
 .score {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   padding: 5px 10px;
   align-items: flex-end;
-  color: white;
-:last-child{
-text-align: end;}
+  color: black;
+
+  :nth-child(2) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0px 15px;
+    font-size: 20px;
+  }
+  :first-child {
+    color: green;
+  }
+  :last-child {
+    color: red;
+    text-align: end;
+  }
 }
 </style>

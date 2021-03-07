@@ -5,10 +5,23 @@
     </div>
 
     <div id="nameCont">
+      <template v-if="!answer">
       <div @click="setAnswer" v-for="name in names" :key="name">
         <button type="button" :class="`nes-btn is-${randBtn()}`">
           {{ name }}
         </button>
+      </div>
+      </template>
+      <div v-if="answer">      
+              <button @click="$emit('next')" type="button" :class="`nes-btn is-${answer==guess ? 'success': 'error'}`">
+      Next</button>  
+      <div style="margin:  60px">
+          <i  :class='[answer == guess ? "trophy" : "close", "nes-icon  is-large"]'></i>
+          <h5>
+{{answer == guess ? "Correct" : "Wrong"}}
+
+          </h5>
+      </div>
       </div>
     </div>
   </div>
@@ -16,17 +29,19 @@
 
 <script>
 export default {
-  props: ["char", "chars"],
+  props: ["char", "chars", "answer"],
   data() {
     return {
+      guess:null,
       btns: ["primary", "success", "warning"],
     };
   },
   methods: {
     randBtn() {
-      return this.btns[Math.floor(Math.random() * 2)];
+      return this.btns[Math.floor(Math.random() * 1)];
     },
     setAnswer(ev) {
+      this.guess = ev.target.innerText
       this.$emit("setanswer", ev.target.innerText);
     },
     shuffle(array) {
@@ -41,7 +56,7 @@ export default {
       return this.shuffle(allNames);
     },
     names() {
-      let sample = this.shuffle(this.allNames.slice(0, 5));
+      let sample = this.shuffle(this.allNames.slice(0, 4));
       let choices = [this.char.name, ...this.shuffle(sample)];
       let shuffled = this.shuffle(choices);
       return shuffled;
@@ -63,7 +78,7 @@ export default {
   background: white;
 }
 img {
-  height: 250px;
+  height: 270px;
   max-width: 90vw;
 }
 #nameCont {
@@ -72,6 +87,7 @@ img {
   grid-gap: 10px;
   padding: 30px 10px;
   justify-items: center;
+  overflow: scroll;
 }
 #charCont {
   text-align: center;
