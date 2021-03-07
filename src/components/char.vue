@@ -1,5 +1,5 @@
 <template>
-  <div id="charCont">
+  <div @dblclick.prevent="() => {}" id="charCont">
     <div id="imgCont">
       <img :src="char.url" />
     </div>
@@ -34,16 +34,14 @@ export default {
     },
   },
   computed: {
-    corAnswer() {
-      return this.char.name;
-    },
     allNames() {
-      return this.chars.map((char) => char.name);
+      let allNames = this.chars
+        .map((char) => char.name)
+        .filter((n) => n != this.char.name);
+      return this.shuffle(allNames);
     },
     names() {
-      let sample = this.shuffle(this.allNames.slice(0, 8)).filter(
-        (n) => n != this.corAnswer
-      );
+      let sample = this.shuffle(this.allNames.slice(0, 5));
       let choices = [this.char.name, ...this.shuffle(sample)];
       let shuffled = this.shuffle(choices);
       return shuffled;
@@ -56,36 +54,32 @@ export default {
 #charCont {
   display: grid;
   justify-items: center;
-  grid-auto-rows: 1fr auto;
+  grid-auto-rows: auto 1fr;
 }
 #imgCont {
   cursor: default;
-  padding: 20px;
+  padding: 10px;
   width: 100vw;
+  background: white;
 }
 img {
-  height: 300px;
+  height: 250px;
+  max-width: 90vw;
 }
 #nameCont {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-gap: 10px;
-  background: rgba(209, 209, 209, 0.336);
-  padding: 30px;
+  padding: 30px 10px;
   justify-items: center;
 }
 #charCont {
   text-align: center;
 }
-img {
-  margin-bottom: 20px;
-}
-.answer {
-  font-weight: bold;
-}
+
 .nes-btn {
   overflow: hidden;
-  width: 45vw;
-  max-width: 300px;
+  width: 95vw;
+  max-width: 400px;
 }
 </style>

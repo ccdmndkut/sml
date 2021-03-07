@@ -1,8 +1,9 @@
 <template>
   <div>
-    <!-- <char v-for="(char, ind) in chars" :key="ind" :char="char" :chars="chars" /> -->
-    {{ question + 1 }} / {{ chars.length }}
-    <div>{{ right }} / {{ wrong }}</div>
+    <div class="score">
+      <div>{{ right }}</div>
+      <div>{{ wrong }}</div>
+    </div>
     <char
       v-if="chars.length && !gameover"
       @setanswer="setanswer"
@@ -62,11 +63,27 @@ code,
 kbd,
 samp,
 #app {
+  background: rgba(209, 209, 209, 0.336);
+  width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
+  overflow: hidden;
   font-family: "Press Start 2P", cursive;
 }
-
+body {
+  touch-action: pan-y;
+}
 #names {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+.score {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 5px 10px;
+  align-items: flex-end;
+  color: white;
+:last-child{
+text-align: end;}
 }
 </style>
