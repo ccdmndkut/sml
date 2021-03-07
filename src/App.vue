@@ -92,18 +92,25 @@ body {
   padding: 5px 10px;
   align-items: flex-end;
   color: black;
+  
 
   :nth-child(2) {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin: 0px 15px;
     padding: 0px 15px;
     font-size: 20px;
+    border-radius: 7px;
+    color: white;
+    background:blue;
   }
   :first-child {
+    margin:5px;
     color: green;
   }
   :last-child {
+    margin:5px;
     color: red;
     text-align: end;
   }
