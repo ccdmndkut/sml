@@ -2,13 +2,16 @@
   "name": "sml",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "fs-extra": "^9.1.0",
     "nes.css": "^2.3.0",
     "vue": "^3.0.0"
   },
